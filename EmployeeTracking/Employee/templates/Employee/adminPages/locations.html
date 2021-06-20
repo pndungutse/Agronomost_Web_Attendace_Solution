@@ -1,0 +1,60 @@
+{% extends "Employee/baseStaff.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+all locations
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+<div class="alert alert-success">
+  <strong>Success!</strong> {{message}}.
+</div>
+{% endfor %}
+  <h1 class="text-center">All Locations</h1>
+  <br>
+  <table class="table">
+    <a style="background-color: #080808; border: #080808;" href="{% url 'add_location' %}" class="btn btn-primary mb-3">Add Location</a>
+    <br>
+    <thead>
+        <tr>
+            <th>Place name</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Radius</th>
+            <th colspan="2" class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for location in page_obj %}
+        <tr>
+            <td>{{location.place_name}}</td>
+            <td>{{location.latitude}}</td>
+            <td>{{location.longitude}}</td>
+            <td>{{location.radius}} Meters</td>
+            <td><a href="{% url 'location_update' location.id %}" class="btn btn-sm btn-success">Update</a></td>
+            <td><a href="{% url 'location_delete' location.id %}" class="btn btn-sm btn-danger">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="float-right">
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock %}

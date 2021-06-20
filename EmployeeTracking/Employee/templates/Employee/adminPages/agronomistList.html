@@ -1,0 +1,79 @@
+{% extends "Employee/baseStaff.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+all locations
+{% endblock %}
+
+{% block content %}
+
+
+<div class="content-dashboard">
+    <h3 class="text-uppercase text-info">list of Beneficiary</h3>
+    {% if user.is_superuser %}
+    <a style="background-color: #080808; border: #080808;" class="btn btn-primary mt-1 mb-1" href="{% url 'addAgronomist' %}" style="text-decoration: none;">Add
+        Agronomist</a>
+        {% endif %}
+    <div class="row">
+        <div class="col-md-12 card shadow-sm  pb-7 p-4">
+            {% include 'generics/filter_form.html' %}
+            <table class="table table-hover">
+                <caption></caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Agronomists Code</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   {% for new in page_obj %}
+                    <tr>
+                        <td>{{ new.agr_code|slice:"15" }}{% if new.agr_code|length > 15 %}...{% endif %}</td>
+                        <td>{{ new.first_name|slice:"20" }}{% if new.first_name|length > 20 %}...{% endif %}
+                        </td>
+                        <td>{{ new.last_name|slice:"20" }}{% if new.last_name|length > 20 %}...{% endif %}
+                        <td>{{ new.phone|slice:"20" }}{% if new.phone|length > 20 %}...{% endif %}</td>
+                        <td>{{ new.email|slice:"20" }}{% if new.email|length > 20 %}...{% endif %}</td>
+                        <td>
+                            <a href="" class="btn btn-sm btn-success">View</a>
+                            {% comment %} <a href="{% url 'pass' pk=new.id %}" class="btn btn-sm btn-success">Prodide Pass</a> {% endcomment %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                     {% comment %} {% else %}
+                    <tr>
+                        <td colspan="2">
+                            <p class="text-centered ">No Data to Display</p>
+                        </td>
+                    </tr>
+                    {% endif %} {% endcomment %}
+                </tbody>
+            </table>
+            {% comment %} {% include 'generics/paginator.html' %} {% endcomment %}
+            <div class="float-right">
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

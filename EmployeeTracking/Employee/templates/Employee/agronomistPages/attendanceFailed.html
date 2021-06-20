@@ -1,0 +1,43 @@
+{% extends "Employee/baseEmployee.html" %}
+
+
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+failed
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger text-center" role="alert">
+          {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+</div>
+
+<h3>See in picture where you are and where you have to belong</h3>
+
+<br><br>
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-6">
+      <div id="map" style="height: 400px; width: 1000px; margin-left: 130px;"></div>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+
+{% endblock %}

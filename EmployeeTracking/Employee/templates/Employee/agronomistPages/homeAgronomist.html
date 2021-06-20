@@ -1,0 +1,204 @@
+{% extends "Employee/baseEmployee.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %} 
+    home employee
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-white text-black shadow md-4 d-flex flex-column justify-content-center align-items-center">
+        <h5 class="text-center">Last Month Perfomance Statistics</h5> <br>
+        <canvas id="myChart" width="600" height="250"></canvas>
+      </div>
+    </div>
+  </div> 
+
+  <br>
+
+  <!-- <div class="row">
+    <div class="col-md-6">
+      <div class="card bg-white text-black shadow md-4 d-flex flex-column justify-content-center align-items-center">
+        <h5 class="text-center">Your Weekly Attendance Report</h5> <br>
+        <canvas id="myChart1" width="400" height="150"></canvas>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card bg-white text-black shadow md-4 d-flex flex-column justify-content-center align-items-center">
+        <h5 class="text-center">Your Weekly Attendance Report</h5> <br>
+        <canvas id="myChart2" width="400" height="150"></canvas>
+      </div>
+    </div>
+  </div> -->
+        <script>
+          $(document).ready(function(){
+              var ctx = document.getElementById('myChart').getContext('2d');
+  
+        var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          // labels: [{% for school in qs %}'{{ school.sector }}',{% endfor %}],
+          labels: ['This week perfomance', 'Previous 2 weeks performance', 'Previous 3 weeks performance', 'Previous 4 weeks performance'],
+          datasets: [{
+              label: '# of Attendances with the following range of of days',
+              data: [({{week1}}).toFixed(2), ({{week2}}).toFixed(2), ({{week3}}).toFixed(2), ({{week4}}).toFixed(2)],
+              backgroundColor: [
+                'rgba(30, 28, 40)',
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 206, 86, 0.5)',
+              ],
+              borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          },
+          title: {
+          display: true,
+          text: 'Attendances on this last month'
+        },
+          plugins: {
+            datalabels: {
+              offset: -10,
+              font: {
+                weight: 'bold',
+                size: '15'
+              },
+              formatter: (value) => {
+                return value + '%';
+              }
+            }
+          }
+        }
+        });
+          }); 
+
+          $(document).ready(function(){
+              var ctx = document.getElementById('myChart1').getContext('2d');
+  
+        var myChart1 = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          // labels: [{% for school in qs %}'{{ school.sector }}',{% endfor %}],
+          labels: ['Social Studies marks with 0-25 ', 'Social Studies marks with 26-50 ', 'Social Studies marks with 51-75', 'Social Studies marks with 76-100'],
+          datasets: [{
+              label: '# of Students with the following range of marks in English Course',
+              data: [5, 3, 2, 9],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 206, 86, 1)',
+              ],
+              borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          },
+          plugins: {
+            datalabels: {
+              color: '#000',
+              {% comment %} anchor: 'end',
+              align: 'start', {% endcomment %}
+              offset: -10,
+              {% comment %} borderWidth: 2, 
+              borderColor: '#808080',
+              borderRadius: 50,
+              backgroundColor: (context) => {
+                return context.dataset.backgroundColor;
+              }, {% endcomment %}
+              font: {
+                weight: 'bold',
+                size: '10'
+              },
+              formatter: (value) => {
+                return value + '%';
+              }
+            }
+          }
+        }
+        });
+          }); 
+
+
+          $(document).ready(function(){
+              var ctx = document.getElementById('myChart2').getContext('2d');
+  
+        var myChart2 = new Chart(ctx, {
+        type: 'line',
+        data: {
+          // labels: [{% for school in qs %}'{{ school.sector }}',{% endfor %}],
+          labels: ['Social Studies marks with 0-25 ', 'Social Studies marks with 26-50 ', 'Social Studies marks with 51-75', 'Social Studies marks with 76-100'],
+          datasets: [{
+              label: '# of Students with the following range of marks in English Course',
+              data: [5, 3, 2, 9],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 206, 86, 1)',
+              ],
+              borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          },
+          plugins: {
+            datalabels: {
+              color: '#000',
+              {% comment %} anchor: 'end',
+              align: 'start', {% endcomment %}
+              offset: -10,
+              {% comment %} borderWidth: 2, 
+              borderColor: '#808080',
+              borderRadius: 50,
+              backgroundColor: (context) => {
+                return context.dataset.backgroundColor;
+              }, {% endcomment %}
+              font: {
+                weight: 'bold',
+                size: '10'
+              },
+              formatter: (value) => {
+                return value + '%';
+              }
+            }
+          }
+        }
+        });
+          }); 
+        
+        </script>
+  
+{% endblock %}

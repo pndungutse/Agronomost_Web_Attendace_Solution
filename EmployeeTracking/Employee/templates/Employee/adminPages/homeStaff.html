@@ -1,0 +1,120 @@
+{% extends "Employee/baseStaff.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+home staff
+{% endblock %}
+
+{% block content %}
+
+
+
+
+<script type="text/javascript">
+
+  $(document).ready(function () {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Juil', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+          label: '# of Attendances',
+          data: [({{january}}).toFixed(2), ({{february}}).toFixed(2), ({{march}}).toFixed(2), ({{april}}).toFixed(2), ({{may}}).toFixed(2), ({{june}}).toFixed(2), ({{july}}).toFixed(2), ({{august}}).toFixed(2), ({{september}}).toFixed(2), ({{october}}).toFixed(2), ({{november}}).toFixed(2), ({{december}}).toFixed(2)],
+          backgroundColor: [
+            'rgba(30, 28, 40)',
+            'rgba(30, 28, 40)',
+            'rgba(30, 28, 40)',
+            'rgba(30, 28, 40)',
+            'rgba(30, 28, 40)',
+            'rgba(30, 28, 40)',
+            'rgba(30, 28, 40)',
+            'rgba(30, 28, 40)',
+            'rgba(30, 28, 40)',
+            'rgba(30, 28, 40)',
+            'rgba(30, 28, 40)',
+            'rgba(30, 28, 40)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            gridLines: {
+              display: true
+            },
+            ticks: {
+              beginAtZero: true
+            }
+          }],
+          xAxes: [{
+            gridLines: {
+              display: false
+            },
+          }],
+        },
+        title: {
+          display: true,
+          text: 'Attendances on specific month'
+        },
+        plugins: {
+          datalabels: {
+            offset: -10,
+            font: {
+              weight: 'bold',
+              size: '10'
+            },
+            formatter: (value) => {
+              return value + '%';
+            }
+          }
+        }
+
+      }
+    });
+  });
+</script>
+
+<div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header text-center">
+          Number of Agronomists
+        </div>
+        <div class="body">
+          <h5 class="card-title text-center">{{no_agronomists}}</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header text-center">
+          Number of Locations
+        </div>
+        <div class="body">
+          <h5 class="card-title text-center">{{no_locations}}</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header text-center">
+          Number of Agronomist that assigned to Location
+        </div>
+        <div class="body">
+          <h5 class="card-title text-center">{{no_agr_loc}}</h5>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <canvas id="myChart" width="70" height="28"></canvas>
+  </div>
+</div>
+{% endblock %}

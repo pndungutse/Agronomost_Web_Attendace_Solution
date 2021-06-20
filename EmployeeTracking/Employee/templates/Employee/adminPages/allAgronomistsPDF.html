@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>all_agronomist</title>
+    <style>
+        @page {
+            size: a4 portrait;   
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            }
+            @frame header_frame {
+                -pdf-frame-content: header-content;
+                left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+            }
+            
+            @frame content_frame {
+                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+            }   
+        }
+    </style>
+</head>
+<body>
+    <div id="header_content"> 
+    Company Name: <strong>Company Ltd</strong><br><br>
+    
+    </div>
+<br><br>
+
+<div id="content_frame"> 
+        <h1 style="text-align: center;">List of All Agronomist Registered</h1> <br><br>
+
+        <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th style="height: 35px;">First Name</th>
+                    <th style="height: 35px;">Last Name</th>
+                    <th style="height: 35px; margin-right: 35px;">Phone</th>
+                    <th style="height: 35px;">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for agr in agronomists %}
+                
+                <tr>
+                    <td style="height: 35px; padding-left: 38px;">{{ agr.first_name }}</td>
+                    <td style="height: 35px; padding-left: 38px;">{{ agr.last_name }}</td>
+                    <td style="height: 35px; padding-left: 38px;">{{ agr.phone }}</td>
+                    <td style="height: 35px; padding-left: 38px;">{{ agr.email }}</td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+        <br><br><br><br><br><br><br>
+        <p style="margin-left: 550px;"><strong>{{user}}</strong></p>
+        <p style="margin-left: 550px;"><strong>Company Ltd</strong></p>
+
+</div>
+</body>
+</html>

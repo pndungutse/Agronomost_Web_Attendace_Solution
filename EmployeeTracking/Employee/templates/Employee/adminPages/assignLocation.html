@@ -1,0 +1,69 @@
+{% extends "Employee/baseStaff.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+assign location to employee
+{% endblock %}
+
+{% block content %}
+    {% for message in messages %}
+    <div class="alert alert-success">
+    <strong>Success!</strong> {{message}}.
+    </div>
+    {% endfor %}
+        <h1 class="text-center">List of all agronoists and their location of works</h1>
+ <br />
+  
+<table class="table">
+    <a style="background-color: #080808; border: #080808;" href="{% url 'newAssignLocation' %}" class="btn btn-primary mb-3">Assign new Agronomist</a>
+    <br>
+    <thead>
+        <tr>
+            <th>Agr first name</th>
+            <th>Agr last name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Location name</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th colspan="2" class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for agr_loc in page_obj %}
+        <tr>
+            <td>{{agr_loc.agronomist.first_name}}</td>
+            <td>{{agr_loc.agronomist.last_name}}</td>
+            <td>{{agr_loc.agronomist.email}}</td>
+            <td>{{agr_loc.agronomist.phone}}</td>
+            <td>{{agr_loc.location.place_name}}</td>
+            <td>{{agr_loc.location.latitude}}</td>
+            <td>{{agr_loc.location.longitude}}</td>
+            <td><a href="{% url 'updateAssignLocation' agr_loc.id %}" class="btn btn-sm btn-success">Update</a></td>
+            <td><a href="{% url 'agr_location_delete' agr_loc.id %}" class="btn btn-sm btn-danger">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    
+</table>
+<div class="float-right">
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+{% endblock %}

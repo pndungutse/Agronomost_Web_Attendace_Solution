@@ -1,0 +1,63 @@
+{% extends "Employee/baseEmployee.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+attendance reports
+{% endblock %}
+
+{% block content %}
+  <h1 class="text-center">Attendance Reports</h1>
+
+  <div class="row">
+    <div class="col-md-4">
+      <button class="btn btn-success btn-block"  data-toggle="modal" data-target="#myModal2">Weekly attendance report</button>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-success btn-block">Monthly attendance report</button>
+    </div>
+    <div class="col-md-4">
+      
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Generate attendance report for specific week</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+  
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <form role="search" action='schoolTwoYearReport'>
+  
+                  <div class="form-group">
+                    <input type="number" class="form-control" role="search" placeholder="Enter week number" name='weekNo' required>
+                  </div>
+  
+                  <button class="btn btn-primary btn-sm">Generate Report</button>
+                </form>
+  
+              </div>
+            </div>
+          </div>
+  
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "Employee/baseStaff.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+add location
+{% endblock %}
+
+{% block content %}
+  <h1 class="text-center" style="margin-left: -150px;">Add Location</h1>
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-9">
+      <form action="" method="POST">
+          {% csrf_token %}
+          <div class="row">
+              <div class="col-md-6">
+                  {{form.place_name|as_crispy_field}}
+                  {{form.latitude|as_crispy_field}}
+                  {{form.longitude|as_crispy_field}}
+              </div>
+          </div>
+          <br>
+          <button style="margin-left: 395px;" type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+</div>
+{% endblock %}

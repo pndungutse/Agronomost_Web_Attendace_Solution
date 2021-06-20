@@ -1,0 +1,49 @@
+{% load static %} {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+
+    <title>register</title>
+  </head>
+  <body>
+    <div class="container">
+    <div
+      class="card shadow p-3 pb-5 mt-5 ml-auto mr-auto"
+      style="width: 500px; height: 100%"
+    >
+    <div class="text-center mt-0">
+      <h2 class="text-muted">REGISTER FORM</h2>
+    </div>
+      <!-- <div class="row"> -->
+        <!-- <div class="col-md-3"></div> -->
+        <!-- <div class="col-md-6"> -->
+          <form action="{% url 'registerPage' %}" method="POST" class="site-form mt-3">
+            {% csrf_token %}
+            {{form.username|as_crispy_field}}
+            {{form.email|as_crispy_field}}
+            {{form.password1|as_crispy_field}}
+            {{form.password2|as_crispy_field}}
+            <input class="btn btn-block btn-primary" type="submit" name="Register" />
+          </form>
+          <div style="text-decoration: red;">
+          {{form.errors}}
+          </div>
+          <div class="mt-4" style="margin-left: 310px">
+            <div class="d-flex justift-content-center links">
+              Already have an account?
+              <a href="{% url 'loginPage' %}" class="ml-2" style="text-decoration: none;">Login</a>
+            </div>
+          </div>
+        <!-- </div> -->
+        <!-- <div class="col-md-3"></div> -->
+      <!-- </div> -->
+    </div>
+    </div>
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

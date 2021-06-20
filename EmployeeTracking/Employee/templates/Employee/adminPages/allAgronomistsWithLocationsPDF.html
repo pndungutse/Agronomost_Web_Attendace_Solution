@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>all_locations</title>
+    <style>
+        @page {
+            size: a4 portrait;   
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            }
+            @frame header_frame {
+                -pdf-frame-content: header-content;
+                left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+            }
+            
+            @frame content_frame {
+                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+            }   
+        }
+    </style>
+</head>
+<body>
+    <div id="header_content"> 
+    Company Name: <strong>Company Ltd</strong><br><br>
+    
+    </div>
+<br><br>
+
+<div id="content_frame"> 
+        <h1 style="text-align: center;">List of All Agronomists and their assigned Location</h1> <br><br>
+
+        <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th style="height: 38px;">Agronomist Name</th>
+                    <th style="height: 38px;">Agronomist Phone</th>
+                    <th style="height: 38px;">Agronomist Email</th>
+                    <th style="height: 38px;">Location Name</th>
+                    <th style="height: 38px;">Latitude</th>
+                    <th style="height: 38px;">Longitude</th>
+                    <th style="height: 38px;">Radius</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for agr_loc in agronomist_locations %}
+                
+                <tr>
+                    <td style="height: 38px; padding-left: 0px;">{{ agr_loc.agronomist.first_name }}</td>
+                    <td style="height: 38px; padding-left: 0px;">{{ agr_loc.agronomist.phone }}</td>
+                    <td style="height: 38px; padding-left: 0px;">{{ agr_loc.agronomist.email }}</td>
+                    <td style="height: 38px; padding-left: 0px;">{{ agr_loc.location.place_name }}</td>
+                    <td style="height: 38px; padding-left: 0px;">{{ agr_loc.location.latitude }}</td>
+                    <td style="height: 38px; padding-left: 0px;">{{ agr_loc.location.longitude }}</td>
+                    <td style="height: 38px; padding-left: 0px;">{{ agr_loc.location.radius }}</td>
+
+
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+        <br><br><br><br><br><br><br>
+        <p style="margin-left: 550px;"><strong>{{user}}</strong></p>
+        <p style="margin-left: 550px;"><strong>Company Ltd</strong></p>
+</body>
+</html>

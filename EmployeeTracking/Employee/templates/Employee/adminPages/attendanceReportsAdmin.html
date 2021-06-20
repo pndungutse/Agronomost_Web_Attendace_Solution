@@ -1,0 +1,22 @@
+{% extends "Employee/baseStaff.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+attendance reports
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <!-- <div class="col-md-12"> -->
+      <div class="col-md-4">
+        <a href="{% url 'allAgronomistPDF' %}" class="btn btn-block btn-dark">All Agronomists</a>
+      </div>
+      <div class="col-md-4">
+        <a href="{% url 'allLocationsPDF' %}" class="btn btn-block btn-dark">All Locations</a>
+      </div>
+      <div class="col-md-4">
+        <a href="{% url 'agr_locPDF' %}" class="btn btn-block btn-dark">Agronomist with Location</a>
+      </div>
+    <!-- </div> -->
+  </div>
+{% endblock %}

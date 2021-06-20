@@ -1,0 +1,185 @@
+{% extends "Employee/baseEmployee.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+make attendance
+{% endblock %}
+
+{% block content %}
+
+
+
+<script>
+
+if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+
+        
+
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+
+
+        let user_latitude = {{user_latitude}};
+        let user_longitude = {{user_longitude}};
+        let user_radius = {{radius}};
+
+
+
+
+        const R = 6371e3; // metres
+          const φ1 = long * Math.PI/180; // φ, λ in radians
+          const φ2 = user_longitude * Math.PI/180;
+          const Δφ = (user_longitude-long) * Math.PI/180;
+          const Δλ = (lat-(user_latitude)) * Math.PI/180;
+
+          const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                    Math.cos(φ1) * Math.cos(φ2) *
+                    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+          const d = R * c; // in metres
+          console.log(d)
+        document.getElementById('distance').value = d;
+        document.getElementById('latitude').textContent = lat;
+        document.getElementById('longitude').textContent = long;
+        
+      })
+    } else {
+      console.log('Geolocation is not available')
+    }
+
+
+var lat = '';
+var long = '';
+
+function getLocation() {
+ 
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition1);
+    console.log(distance)
+  } else { 
+    alert('You are Not Connected to Internet')
+  }
+}
+
+function returnToPreviousPage(){
+  window.location.href="/failed"
+}
+
+function showPosition1(position, event) {
+
+  const lat = position.coords.latitude;
+ 
+        const long = position.coords.longitude;
+       
+
+        let user_latitude = {{user_latitude}}
+        let user_longitude = {{user_longitude}}
+        let user_radius = {{radius}}
+        {% comment %} console.log(user_radius) {% endcomment %}
+
+        const R = 6371e3; // metres
+          const φ1 = long * Math.PI/180; // φ, λ in radians
+          const φ2 = user_longitude * Math.PI/180;
+          const Δφ = (user_longitude-long) * Math.PI/180;
+          const Δλ = (lat-(user_latitude)) * Math.PI/180;
+
+          const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                    Math.cos(φ1) * Math.cos(φ2) *
+                    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+          const d = R * c; // in metres
+          console.log(d)
+          var distance = d;
+        document.getElementById('latitude').textContent = lat;
+        document.getElementById('longitude').textContent = long;
+        
+
+        if(d<=user_radius) {
+        document.getElementById('distances').value = d;
+        returnToPreviousPage();
+            alert("You are not allowed to make attendance, Just click Ok to view the location");
+            return false
+
+          }else {
+            // alert("Make attendance00");
+            return true
+          }
+}
+// getLocation();
+
+
+
+      
+
+  </script>
+
+<div class="container">
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-warning text-center" role="alert">
+          {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+</div>
+  <h1 class="text-center">Make Attendance</h1>
+  <br />
+
+  <!-- <div class="row">
+    <div class="col-md-5">
+      <div class="card card-body">
+      
+        <h3>This is your Location Cordinates</h3> <br>
+        <h5>Latitude: <span id="latitude"></span>&deg;<br></h5>
+        <h5>Longitude: <span id="longitude"></span>&deg;<br></h5>  <br>
+        
+      </div>
+  </div>
+  </div> -->
+  <div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-6">
+      <div class="content-dashboard">
+    <div class="row card shadow-sm mt-4 pb-4 p-4 ">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h3 class="mb-4 text-centered text-info text-uppercase">Fill this form to make attendance</h3>
+        {{ form.non_field_errors}}{{form.media}}
+        <form  role="search" action='saveAttendance' onsubmit="return getLocation();">
+  
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="att_type">Attendance Type </label><span style="color:red;">*</span>
+                <select class="form-control" name="status">
+                  <option value="CHECK_IN">CHECKIN</option>
+                  <option value="CHECK_OUT">CHECKOUT</option>
+                </select>
+                <input type="hidden" name="distance" id="distance">
+              </div>
+            </div>
+          </div>
+  
+          <a href="javascript:history.go(-1)" class="btn btn-outline-primary mt-2 text-size-sm px-5">Cancel</a>
+          <input type="submit" value="Make attendance" onclick="" class="btn btn-success mt-2 px-5 float-right">
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  </div>
+  </div>
+  
+
+
+<br />
+  
+<!-- 
+  <h3>Your Location in Picture</h3> -->
+
+{% endblock %}
